@@ -9,10 +9,10 @@ def index():
 def gusty(name):
 	return render_template('252.html', user=name)
 
-@app.route('/hey')
+@app.route('/hey/me')
 def he():
         return "Hey"
 
 
 if __name__ == '__main__':
-	app.run(debug==True)
+	app.run()
