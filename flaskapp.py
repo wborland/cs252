@@ -7,8 +7,11 @@ def index():
 
 @app.route('/gusty/<name>')
 def gusty(name):
-	return render_template('252.html', user=name);
+	return render_template('252.html', user=name)
 
+@app.route('/hey')
+def he():
+        return "Hey"
 
 
 if __name__ == '__main__':
