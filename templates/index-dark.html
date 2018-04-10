@@ -11,12 +11,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
-        <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+        <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='style-dark.css') }}">
 </head>
 
 <body>
 <!--This is the navbar code-->
-  <nav class="navbar navbar-default navbar-fixed-top">
+  <nav class="navbar navbar-default navbar-fixed-top navbar">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -28,9 +28,9 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
-          <li><a >A</a></li>
-          <li><a href="/gusty/boi">B</a></li>
-          <li><a >C</a></li>
+          <li><a >About</a></li>
+          <li><a href="/gusty/boi">Boi</a></li>
+          <li><a >Login</a></li>
         </ul>
       </div>
     </div>
@@ -43,11 +43,19 @@
   </div>
 
   <div class="container">
-    <h1 class="light-green-text">This is light green</h1>
-    <h1 class="dark-green-text">This is dark green</h1>
-    <p class="light-green-text">Light </p> <p class="dark-green-text">Dark</p>
+    <h1>This is light green</h1>
+    <h1>This is dark green</h1>
+    <p>Light </p> <p>Dark</p>
   </div>
 
+  <div class="container text-center">
+    <h3>This is normal center Text</h3>
+  </div>
+
+  <div class="container text-right">
+    <h4>This is right text</h4>
+  </div>
+  
 
 
   <footer>

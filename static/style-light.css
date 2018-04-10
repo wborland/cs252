@@ -8,8 +8,8 @@ body{
     margin: 0 0 70px;
 }
 
-div{
-  margin: 0;
+div {
+    margin: 0px;
 }
 
 strong {
@@ -23,12 +23,18 @@ footer{
     height: 70px;
     width: 100%;
     text-align: center;
-    color: #005300;
+    color: #2AC200;
 }
 
+.navbar-default {
+  font-family: 'Palanquin', sans-serif;
+ }
+
 .nav.navbar-nav.navbar-right li a {
-    color: #005300;
+    color: #2AC200;
 }
+
+
 
 #logo {
     max-height: 2em;
@@ -36,6 +42,7 @@ footer{
 
 #nav-padding {
     padding: 2em; 
+    margin: 0px;
 }
 
 .light-green-text {
@@ -45,4 +52,26 @@ footer{
 .dark-green-text {
     color: #005300;
 }
+
+.btn {
+  -webkit-border-radius: 13;
+  -moz-border-radius: 13;
+  border-radius: 13px;
+  color: #ffffff;
+  font-size: 24px;
+  background: #2AC200;
+  padding: 10px 20px 10px 20px;
+  font-family: 'Palanquin', sans-serif;
+}
+
+.btn:hover {
+  background: green;
+  text-decoration: none;
+}
+
+.row-pad {
+    margin-top: 4em;
+}
+
+
 
