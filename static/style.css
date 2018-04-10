@@ -23,13 +23,26 @@ footer{
     height: 70px;
     width: 100%;
     text-align: center;
-    color: #757575;
+    color: #005300;
 }
 
-#main h1{
-    background-color: blue;
+.nav.navbar-nav.navbar-right li a {
+    color: #005300;
 }
 
-#wrapper {
-    background-color: red;
+#logo {
+    max-height: 2em;
 }
+
+#nav-padding {
+    padding: 2em; 
+}
+
+.light-green-text {
+   color: #2AC200; 
+}
+
+.dark-green-text {
+    color: #005300;
+}
+

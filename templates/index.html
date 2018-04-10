@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
+<head>
         <title>StudentTix</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,46 +12,47 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
         <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
-    </head>
+</head>
+
+<body>
+<!--This is the navbar code-->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/"><img src="/static/img/StudentTixLogo.png" id="logo"></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a >A</a></li>
+          <li><a href="/gusty/boi">B</a></li>
+          <li><a >C</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="nav-padding"></div> <!--Space for things not to go under navbar-->
 
 
-    <body>
-                 <nav class="navbar navbar-default navbar-fixed-top">
-                      <div class="container-fluid">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                              <span class="icon-bar"></span>
-                              <span class="icon-bar"></span>
-                              <span class="icon-bar"></span>
-                            </button>
-                          <a class="navbar-brand" href="index.html">StudentTix</a>
-                        </div>
-                        <div class="collapse navbar-collapse" id="myNavbar">
-                          <ul class="nav navbar-nav navbar-right">
-                                    <li><a >C</a></li>
-                                    <li><a >B</a></li>
-                                    <li><a >A</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                 </nav>
+  <div class="container">
+    <h1>Hello World</h1>
+  </div>
 
-                <div id="main">
-                  <h1>Hello World</h1>
-                </div>
-
-                <div id="wrapper">
-                  <div id="wrapper">
-                      <h1>This</h1>
-                  </div>
-                  <p>Hey</p>
-                </div>
-                  
+  <div class="container">
+    <h1 class="light-green-text">This is light green</h1>
+    <h1 class="dark-green-text">This is dark green</h1>
+    <p class="light-green-text">Light </p> <p class="dark-green-text">Dark</p>
+  </div>
 
 
-                  <footer>
-                    <p> &copy; StudentTix</p>
-                  </footer>
+
+  <footer>
+    <p> &copy; StudentTix</p>
+  </footer>
       
-    </body>
+</body>
 </html>
