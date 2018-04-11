@@ -38,12 +38,18 @@ footer{
     color: #2AC200;
 }
 
+.nav.navbar-nav.navbar-left li a {
+    color: #2AC200;
+}
+
 .container {
     color: white;
 }
 
 #logo {
-    max-height: 2em;
+    min-height: 1.5em;
+    max-height: 1.5em;
+    padding-bottom: 0.2em;
 }
 
 #nav-padding {
