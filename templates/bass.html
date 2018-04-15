@@ -16,6 +16,7 @@
 </head>
 {% endblock %}
 <body>
+<!--This is the navbar code-->
   <nav class="navbar navbar-default navbar-fixed-top navbar">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -28,9 +29,14 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
+          <li><a href="/postTix">Sell a Ticket</a></li>
+		  {% if not 'username' in session%}
+          <li><a href="/login">Sign in</a></li>
+          <li><a href="/register">Sign up</a></li>
+		  {% else %}
+          <li><a href="/logout">Log Out</a></li>
+		  {% endif %}
           <li><a href="/about">About</a></li>
-          <li><a href="/gusty/boi">Boi</a></li>
-          <li><a href="/login">Login</a></li>
         </ul>
       </div>
     </div>
