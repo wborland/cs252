@@ -29,7 +29,7 @@ def light():
 @app.route('/logout')
 def logout():
         session.pop('username', None)
-        return render_template('/')
+        return redirect('/')
 
 @app.route('/login')
 def login():
