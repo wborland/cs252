@@ -26,8 +26,9 @@ def light():
 
 @app.route('/db')
 def db():
-	return user.db.create_user()
-
+	out = user.db.add_user("Will", "BORLAND", "Testing", "password")
+	print(out)
+	return str(out)
 	
 @app.errorhandler(404)
 def page_not_found(e):

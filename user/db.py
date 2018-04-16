@@ -2,18 +2,22 @@
 import db
 
 
-create_user_cmd = """
-    SELECT * FROM user
+
+
+
+
+add_user_cmd = """ INSERT INTO `studentTix`.`user` (`first_name`, `last_name`, `email`, `password`) VALUES (%s, %s, %s, %s);
 """
 
-
-def create_user():
+def add_user(first_name, last_name,email,password):
     conn = db.conn()
     cursor = conn.cursor()
-    cursor.execute(create_user_cmd)
 
-    out = cursor.fetchall()
-    print(out)
-    return "out"
+    try:
+        cursor.execute(add_user_cmd, [first_name, last_name, email, password])
+        conn.commit()
+        out = cursor.fetchone()
 
+        return 1
 
+    
