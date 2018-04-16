@@ -3,6 +3,7 @@ import os
 
 import db
 import db.util
+import user.db
 
 
 app = Flask(__name__)
@@ -23,10 +24,11 @@ def index():
 def light():
 	return render_template('index-light.html')
 
-@app.route('/hey/me')
-def he():
-        return "Hey"
+@app.route('/db')
+def db():
+	return user.db.create_user()
 
+	
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html')

@@ -4,19 +4,12 @@ import MySQLdb as sql
 from MySQLdb.cursors import DictCursor
 
 import db.util
-import config_reader as conf
 
-config = conf.read("database")
 
 def make_conn():
-    db_table = config["database"]
-    return sql.connect(
-            host = db_table["host"],
-            user = db_table["user"],
-            passwd = db_table["pass"],
-            db = db_table["name"], 
-            use_unicode=True, charset="utf8")
+    return sql.connect(host="studenttix.czubge8ebda6.us-east-1.rds.amazonaws.com", db="studentTix", passwd="9T2wX62T5!^%t8",user="gustavo")
 
+    
 def conn():
     if not hasattr(g, 'db_conn'):
         g.db_conn = make_conn()
