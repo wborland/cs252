@@ -23,6 +23,10 @@ def index():
 def light():
 	return render_template('index-light.html')
 
+@app.route('/messages')
+def messages():
+	return render_template('messages.html')
+
 @app.route('/hey/me')
 def he():
         return "Hey"
