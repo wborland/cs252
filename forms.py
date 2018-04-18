@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateTimeField, DecimalField, BooleanField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, DecimalField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired
+from wtforms_components import TimeField
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
@@ -9,10 +10,11 @@ class LoginForm(FlaskForm):
 
 class PostForm(FlaskForm):
     event = StringField('Event Name', validators=[DataRequired()])
-    time = DateTimeField('Date and Time', validators=[DataRequired()])
+    date = DateField('Date', validators=[DataRequired()], format="%m/%d/%Y")
+    time = TimeField('Time', validators=[DataRequired()])
     location = StringField('Event Location', validators=[DataRequired()])
     price = DecimalField('Ticket Price (US $)', validators=[DataRequired()], places=2)
-    comments = StringField('Comments')
+    comments = TextAreaField('Comments')
     submit = SubmitField('Post Ticket For Sale')
 
 class RegisterForm(FlaskForm):

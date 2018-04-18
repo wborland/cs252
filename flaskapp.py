@@ -1,6 +1,7 @@
 from flask import Flask, render_template, send_from_directory, flash, redirect, session
 from forms import LoginForm, PostForm, RegisterForm
 from flask_login import current_user, login_user
+from datetime import date
 import os
 
 import db
@@ -86,9 +87,12 @@ def postTix():
 @app.route('/postTix', methods=['POST'])
 def postTix2():
         form = PostForm()
-        if form.validate_on_submit(): 
-            flash('Post for event {} on date {} at {} for price {}'.format(
-                form.event.data, form.time.data, form.location.data, form.price.data))
+        if form.validate_on_submit():
+            if form.price.data < 0:
+                flash('Price must be a positive number')
+                return render_template('postTicket.html', form=form)
+            flash('Post for event {} on date {} at time {} location {} for price {} with comments \'{}\''.format(
+                form.event.data, form.date.data.strftime('%x'), form.time.data, form.location.data, form.price.data, form.comments.data))
             return redirect('/')
         else :
             flash('That was not valid')
