@@ -1,5 +1,5 @@
 from flask import Flask, render_template, send_from_directory, flash, redirect, session
-from forms import LoginForm, PostForm, RegisterForm
+from forms import LoginForm, PostForm, RegisterForm, SearchForm
 from flask_login import current_user, login_user
 from datetime import date
 import os
@@ -19,13 +19,18 @@ app.config.update(
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico')
 
+@app.route('/grr')
+def grr():
+        return '<html>\nA Systems <em><b>God</b></em>\n</html>'
+
 @app.route('/dark')
 def index():
 	return render_template('index-dark.html')
 
 @app.route('/')
 def light():
-	return render_template('index-light.html')
+        return redirect('/searchTix')
+	#return render_template('index-light.html')
 
 @app.route('/logout')
 def logout():
@@ -98,6 +103,10 @@ def postTix2():
             flash('That was not valid')
             return render_template('postTicket.html', form=form)
 
+@app.route('/searchTix')
+def searchTix():
+        form = SearchForm()
+        return render_template('searchTicket.html', form=form)
 
 @app.route('/hey/me')
 def he():

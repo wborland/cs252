@@ -30,3 +30,16 @@ class RegisterForm(FlaskForm):
     confirmPass = PasswordField('Retype Password', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
     
+class SearchForm(FlaskForm):
+    submit = SubmitField('Search')
+    event = StringField('Event Name')
+    date = DateField('Date', format="%m/%d/%Y")
+    time = TimeField('Time')
+    location = StringField('Event Location')
+    #price = NumberRangeField('Price Range')
+    price1 = BooleanField('$0 - $19')
+    price2 = BooleanField('$20 - $39')
+    price3 = BooleanField('$40 - $59')
+    price4 = BooleanField('$60 - $79')
+    price5 = BooleanField('$80 - $99')
+    price6 = BooleanField('$100+')
