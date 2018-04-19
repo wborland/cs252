@@ -45,6 +45,7 @@ def login():
             #return redirect('/')
 
         form = LoginForm()
+
         return render_template('login.html', form=form)
 
 @app.route('/login', methods=['POST'])
@@ -53,7 +54,17 @@ def login2():
         if form.validate_on_submit():
             flash('Logged in as {} with password {}'.format(
                 form.email.data, form.password.data))
+
+            email = form.email.data
+            password = form.password.data
+            print("Hello", user.db.check_login(email, password))
+
+
             session['username'] = form.email.data
+
+
+        	
+
             return redirect('/')
         else :
             flash('You must fill out both fields')
