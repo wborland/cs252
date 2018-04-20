@@ -1,9 +1,4 @@
-
 import db
-
-
-
-
 
 
 add_user_cmd = """ INSERT INTO `studentTix`.`user` (`first_name`, `last_name`, `email`, `password`) VALUES (%s, %s, %s, %s);
@@ -25,12 +20,17 @@ login_user_cmd = """ SELECT * FROM `studentTix`.`user` WHERE email = %s """
 def check_login(email, password):
     conn = db.conn()
     cursor = conn.cursor()
-    print("email", email)
 
     cursor.execute(login_user_cmd, [email])
-
     out = cursor.fetchall()
 
-    print("db", out)
-
     return 1
+
+add_ticket_cmd = """ INSERT INTO `studentTix`.`tickets` (`user_id`, `name`, `event`, `date_time`, `price`, `description`) VALUES (%s, %s, %s, %s, %s, %s); """
+
+def add_ticket(user_id, name, event, time, price, description):
+    conn = db.conn()
+    cursor = conn.cursor()
+
+    cursor.execute(add_ticket_cmd, [user_id, name, event, time, price, description])
+    
