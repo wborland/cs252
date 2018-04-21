@@ -13,7 +13,54 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
         <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='style-light.css') }}">
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script>
+		$(function() {
+			$( ".dtpick" ).datepicker();
+		});
+		</script>
 </head>
 {% endblock %}
-
+<body>
+<!--This is the navbar code-->
+  <nav class="navbar navbar-default navbar-fixed-top navbar">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/"><img src="/static/img/StudentTixLogo.png" id="logo"></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/postTix">Sell a Ticket</a></li>
+		  {% if not 'username' in session%}
+          <li><a href="/login">Sign in</a></li>
+          <li><a href="/register">Sign up</a></li>
+		  {% else %}
+          <li><a href="/logout">Log Out</a></li>
+		  {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="nav-padding"></div> <!--Space for things not to go under navbar-->
+<hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+{% block content %}{% endblock %}
+  <footer>
+    <p> &copy; StudentTix</p>
+  </footer>
+</body>
 </html>
