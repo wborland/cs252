@@ -17,6 +17,7 @@ class PostForm(FlaskForm):
     comments = TextAreaField('Comments')
     submit = SubmitField('Post Ticket For Sale')
 
+
 class RegisterForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     firstName = StringField('First Name', validators=[DataRequired()])
