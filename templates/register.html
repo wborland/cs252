@@ -1,0 +1,37 @@
+{% extends "bass.html" %}
+
+{% block content %}
+	<div class="container"> 
+	<h1>Register</h1>
+	<form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=48) }}
+        </p>
+        <p>
+            {{ form.firstName.label }}<br>
+            {{ form.firstName(size=48) }}
+        </p>
+        <p>
+            {{ form.lastName.label }}<br>
+            {{ form.lastName(size=48) }}
+        </p>
+		<h4>Forms of Payment Accepted</h4>
+		<p>{{ form.venmo }} {{ form.venmo.label }}</p>
+		<p>{{ form.facebook }} {{ form.facebook.label }}</p>
+		<p>{{ form.apple }} {{ form.apple.label }}</p>
+		<p>{{ form.android }} {{ form.android.label }}</p>
+		<p>{{ form.dollars }} Cash (In person)</p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=48) }}
+        </p>
+        <p>
+            {{ form.confirmPass.label }}<br>
+            {{ form.confirmPass(size=48) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+	</div>
+{% endblock %}
