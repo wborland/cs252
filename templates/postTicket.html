@@ -18,27 +18,19 @@
 		<br><br><br><br>
         <p>
             {{ form.time.label }}<br>
-            {{ form.time(class="dtpick") }}
+            {{ form.time() }}
         </p>
         <p>
             {{ form.location.label }}<br>
             {{ form.location(size=48) }}
         </p>
         <p>
-                {{ form.price.label }}<br>
+            {{ form.price.label }}<br>
             {{ form.price() }}
         </p>
         <p>
             {{ form.comments.label }}<br>
             {{ form.comments(size=200) }}
-            <div class="form-group">
-                <label class="col-xs-3 control-label">Date</label>
-                <div class="col-xs-5 date">
-                    <div id="embeddingDatePicker">
-                    </div>
-                    <input type="hidden" id="selectedDate" name="selectedDate" />
-                </div>
-            </div>
         </p>
         <p>{{ form.submit() }}</p>
 		</form>

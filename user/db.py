@@ -1,14 +1,14 @@
 import db
 
 
-add_user_cmd = """ INSERT INTO `studentTix`.`user` (`first_name`, `last_name`, `email`, `password`) VALUES (%s, %s, %s, %s);
+add_user_cmd = """ INSERT INTO `studentTix`.`user` (`first_name`, `last_name`, `email`, `password`, `payment`) VALUES (%s, %s, %s, %s, %s);
 """
 
-def add_user(first_name,last_name,email,password):
+def add_user(first_name,last_name,email,password, payment):
     conn = db.conn()
     cursor = conn.cursor()
 
-    cursor.execute(add_user_cmd, [first_name, last_name, email, password])
+    cursor.execute(add_user_cmd, [first_name, last_name, email, password, payment])
     conn.commit()
     out = cursor.fetchone()
 
@@ -26,11 +26,16 @@ def check_login(email, password):
 
     return 1
 
-add_ticket_cmd = """ INSERT INTO `studentTix`.`tickets` (`user_id`, `name`, `event`, `date_time`, `price`, `description`) VALUES (%s, %s, %s, %s, %s, %s); """
+add_ticket_cmd = """INSERT INTO `studentTix`.`tickets` (`user_id`, `name`, `event`, `date_time`, `price`, `description`, `location`) VALUES (%s, %s, %s, %s, %s, %s, %s); """
 
-def add_ticket(user_id, name, event, time, price, description):
+
+def add_ticket(user_id, name, event, time, price, description, location):
     conn = db.conn()
     cursor = conn.cursor()
 
-    cursor.execute(add_ticket_cmd, [user_id, name, event, time, price, description])
+    cursor.execute(add_ticket_cmd, [user_id, name, event, time, price, description, location])
+    conn.commit()
+    print(cursor.fetchall())
+
+    return 1
     

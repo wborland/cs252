@@ -17,9 +17,7 @@ class PostForm(FlaskForm):
     comments = TextAreaField('Comments')
     submit = SubmitField('Post Ticket For Sale')
 
-<<<<<<< HEAD
 
-=======
 class RegisterForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     firstName = StringField('First Name', validators=[DataRequired()])
@@ -46,4 +44,3 @@ class SearchForm(FlaskForm):
     price4 = BooleanField('$60 - $79')
     price5 = BooleanField('$80 - $99')
     price6 = BooleanField('$100+')
->>>>>>> d4167dd79b7a0f6aa071aabfe26bcc1e2e61c3af

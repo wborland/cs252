@@ -1,6 +1,5 @@
 from flask import Flask, render_template, send_from_directory, flash, redirect, session
 from forms import LoginForm, PostForm, RegisterForm, SearchForm
-from flask_login import current_user, login_user
 from datetime import date
 import os
 
@@ -97,6 +96,9 @@ def register2():
         flash('selected methods: ' + methods)
         session['username'] = form.email.data
         flash('logged in as: ' + form.email.data)
+
+        user.db.add_user(form.firstName.data, form.lastName.data, form.email.data, form.password.data, methods)
+
         return redirect('/')
     else:
         flash('Please fill out every field')
@@ -116,6 +118,9 @@ def postTix2():
                 return render_template('postTicket.html', form=form)
             flash('Post for event {} on date {} at time {} location {} for price {} with comments \'{}\''.format(
                 form.event.data, form.date.data.strftime('%x'), form.time.data, form.location.data, form.price.data, form.comments.data))
+
+            print(user.db.add_ticket(3, session["username"], form.event.data, form.date.data, form.price.data, form.comments.data, form.location.data))
+
             return redirect('/')
         else :
             flash('That was not valid')
@@ -124,6 +129,16 @@ def postTix2():
 @app.route('/searchTix')
 def searchTix():
         form = SearchForm()
+        return render_template('searchTicket.html', form=form)
+
+@app.route('/searchTix', methods=['POST'])
+def searchTix2():
+    form = SeachForm()
+    if form.validate_on_submit():
+
+
+    else:
+        flash("Bad")
         return render_template('searchTicket.html', form=form)
 
 @app.route('/hey/me')
