@@ -134,12 +134,7 @@ def searchTix():
 @app.route('/searchTix', methods=['POST'])
 def searchTix2():
     form = SeachForm()
-    if form.validate_on_submit():
-
-
-    else:
-        flash("Bad")
-        return render_template('searchTicket.html', form=form)
+    return "hi"
 
 @app.route('/hey/me')
 def he():
