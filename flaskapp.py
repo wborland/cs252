@@ -216,22 +216,26 @@ def searchTix2():
         sql_cmd = sql_cmd[:-7]
 
     return_me = user.db.run_command(sql_cmd)
-    return str(return_me)
+    #return str(return_me)
+    session['results'] = return_me
+    return redirect('/results')
 
 
 @app.route('/basicsearch', methods=['GET', 'POST'])
 def basic_search():
-    out = user.db.basic_search()
     if request.method == 'GET':
+        out = user.db.basic_search()
         #return jsonify(search=out)
         return render_template('ticketResults.html', results=out)
     else:
-        for result in out:
-            if result[1] in request.form:
-                return result[1]
-        else:
-            return 'Something\'s wrong'
+        return request.form.get('message')
 
+@app.route('/results', methods=['GET', 'POST'])
+def results():
+    if request.method == 'GET':
+        return render_template('ticketResults.html', results=session['results'])
+    else:
+        return request.form.get('message')
 
 @app.route('/hey/me')
 def he():
