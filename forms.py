@@ -44,3 +44,7 @@ class SearchForm(FlaskForm):
     price4 = BooleanField('$60 - $79.99')
     price5 = BooleanField('$80 - $99.99')
     price6 = BooleanField('$100+')
+
+class ResultForm(FlaskForm):
+    seller = str('')
+    submit = SubmitField('Message seller about this ticket')
