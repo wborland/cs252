@@ -3,34 +3,70 @@
 {% block content %}
 
 	<div class="container text-left">
-		<h1> Search for a Ticket </h1>
+		<h1 class="text-center"> Search for a Ticket </h1>
+        <br>
 		<form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>{{ form.submit() }}</p>
-        <p>
-            {{ form.event.label }}<br>
-            {{ form.event(size=48) }}
-        </p>
-        <p>
-            {{ form.date.label }}<br>
-            {{ form.date(class="dtpick") }}
-        </p>
-		<br><br><br><br>
-		<br><br><br><br>
-        <p>
-            {{ form.time.label }}<br>
-            {{ form.time() }}
-        </p>
-        <p>
-            {{ form.location.label }}<br>
-            {{ form.location(size=48) }}
-        </p>
-        <p>{{ form.price1() }} {{ form.price1.label }}</p>
-        <p>{{ form.price2() }} {{ form.price2.label }}</p>
-        <p>{{ form.price3() }} {{ form.price3.label }}</p>
-        <p>{{ form.price4() }} {{ form.price4.label }}</p>
-        <p>{{ form.price5() }} {{ form.price5.label }}</p>
-        <p>{{ form.price6() }} {{ form.price6.label }}</p>
+       
+            <div class="form-group col-sm-6">
+                {{ form.event.label }}<br>
+                {{ form.event(class="form-control") }}
+            </div>
+            
+            <div class="form-group col-sm-6">
+                {{ form.location.label }}<br>
+                {{ form.location(class="form-control") }}
+            </div>
+
+
+            <div class="form-group col-sm-6">
+                {{ form.date.label }}<br>
+                {{ form.date(class="dtpick form-control") }}
+            </div>
+
+            <div class="form-group col-sm-6">
+                {{ form.time.label }}<br>
+                {{ form.time(class="form-control") }}
+            </div>
+
+            <div class="form-group col-sm-12">
+                <label>Price Range</label><br>
+            </div>
+
+
+            <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        {{ form.price1() }} {{ form.price1.label }}
+                    </div>
+                
+                    <div class="col-sm-2">
+                        {{ form.price2() }} {{ form.price2.label }}
+                    </div>
+
+                    <div class="col-sm-2">
+                        {{ form.price3() }} {{ form.price3.label }}
+                    </div>
+                
+                    <div class="col-sm-2">
+                        {{ form.price4() }} {{ form.price4.label }}
+                    </div>
+                
+                    <div class="col-sm-2">
+                        {{ form.price5() }} {{ form.price5.label }}
+                    </div>
+
+                    <div class="col-sm-2">
+                        {{ form.price6() }} {{ form.price6.label }}
+                    </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="form-group col-sm-12">
+                 {{ form.hidden_tag() }}
+                {{ form.submit(class="form-control") }}
+            </div>
+
 		</form>
 	</div>
 

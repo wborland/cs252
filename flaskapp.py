@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, flash, redirect, session
+from flask import Flask, render_template, send_from_directory, flash, redirect, session, jsonify
 from forms import LoginForm, PostForm, RegisterForm, SearchForm
 from datetime import date
 import os
@@ -133,8 +133,19 @@ def searchTix():
 
 @app.route('/searchTix', methods=['POST'])
 def searchTix2():
-    form = SeachForm()
-    return "hi"
+    form = SearchForm()
+    if form.price1.data == True:
+        return "true"
+    else:
+        return "false"
+
+
+
+@app.route('/basicsearch')
+def basic_search():
+    out = user.db.basic_search()
+    return jsonify(search=out)
+
 
 @app.route('/hey/me')
 def he():
