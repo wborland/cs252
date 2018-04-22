@@ -133,7 +133,7 @@ def searchTix():
 
 @app.route('/searchTix', methods=['POST'])
 def searchTix2():
-    form = SeachForm()
+    form = SearchForm()
     return "hi"
 
 @app.route('/hey/me')
