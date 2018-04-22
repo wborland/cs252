@@ -1,0 +1,86 @@
+{% extends "bass.html" %}
+
+{% block content %}
+
+	<div class="container text-left">
+		<h1> Sell a Ticket </h1>
+		<form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.event.label }}<br>
+            {{ form.event(size=48) }}
+        </p>
+        <p>
+            {{ form.date.label }}<br>
+            {{ form.date(class="dtpick") }}
+        </p>
+		<br><br><br><br>
+		<br><br><br><br>
+        <p>
+            {{ form.time.label }}<br>
+            {{ form.time() }}
+        </p>
+        <p>
+            {{ form.location.label }}<br>
+            {{ form.location(size=48) }}
+        </p>
+        <p>
+            {{ form.price.label }}<br>
+            {{ form.price() }}
+        </p>
+        <p>
+            {{ form.comments.label }}<br>
+            {{ form.comments(size=200) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+		</form>
+	</div>
+
+    <script>
+$(document).ready(function() {
+    $('#embeddingDatePicker')
+        .datepicker({
+            format: 'mm/dd/yyyy'
+        })
+        .on('changeDate', function(e) {
+            // Set the value for the date input
+            $("#selectedDate").val($("#embeddingDatePicker").datepicker('getFormattedDate'));
+
+            // Revalidate it
+            $('#eventForm').formValidation('revalidateField', 'selectedDate');
+        });
+
+    $('#eventForm').formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            name: {
+                validators: {
+                    notEmpty: {
+                        message: 'The name is required'
+                    }
+                }
+            },
+            selectedDate: {
+                // The hidden input will not be ignored
+                excluded: false,
+                validators: {
+                    notEmpty: {
+                        message: 'The date is required'
+                    },
+                    date: {
+                        format: 'MM/DD/YYYY',
+                        message: 'The date is not a valid'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+
+{% endblock %}
