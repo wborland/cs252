@@ -48,4 +48,15 @@ def basic_search():
     cursor.execute(basic_search_cmd)
     out = cursor.fetchall()
     return out
+
+
+
+def run_command(command):
+    print(command)
+    conn = db.conn()
+    cursor = conn.cursor()
+    cursor.execute(command)
+
+    out = cursor.fetchall()
+    return out
     
