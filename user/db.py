@@ -49,8 +49,6 @@ def basic_search():
     out = cursor.fetchall()
     return out
 
-
-
 def run_command(command):
     print(command)
     conn = db.conn()
@@ -59,4 +57,40 @@ def run_command(command):
 
     out = cursor.fetchall()
     return out
+
+get_user_groups = """SELECT to_id, from_id FROM `studentTix`.`messages` WHERE to_id = 1 OR from_id = 1 """
+get_to_messages_in_group = """SELECT date_time, message FROM `studentTix`.`messages` WHERE to_id = 1 AND from_id = %s"""
+
+def get_all_user_messages(user):
+    conn = db.conn()
+    cursor = conn.cursor()
+
+    cursor.execute(get_user_groups)
+    out = cursor.fetchall()
+    group_set = set()
+
+    for pair in out:
+        if pair[0] is not user:
+            group_set.add(pair[0])
+        else:
+            group_set.add(pair[1])
+
+    cursor.execute(get_to_messages_in_group, [2])
+    to_messages = cursor.fetchall()
+    print(to_messages)
+
+    return out
+
+
+
+add_message = """INSERT INTO `studentTix`.`messages` (`to_id`, `from_id`, `message`) VALUES (%s, %s, %s);"""
+
+def add_message(to_id, from_id, message):
+    conn = db.conn()
+    cursor = conn.cursor()
+
+    cursor.execute(add_message, [to_id, from_id, message])
+    conn.commit()
+
+    return 1
     
