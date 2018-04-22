@@ -1,0 +1,31 @@
+{% extends "bass.html" %}
+
+{% block content %}
+
+	<div class="container text-left">
+		<h1 class="text-center"> Results </h1>
+        <br>
+		{% for result in results %}
+			<form action="" method="post">
+       
+    	        <div class="form-group">
+	                Event: {{ result[2] }}<br>
+	                Date and Time: {{ result[3] }}<br>
+	                ${{ result[4] }}<br>
+	                Place: {{ result[6] }}<br>
+	                {{ result[5] }}<br>
+            	</div>
+
+    	        <br>
+    	        <div class="form-group">
+					<input name={{ result[1] }} type="submit" value="Message about this ticket"/>
+				</div>
+    	        <br>
+    	        <br>
+    	        <br>
+
+			</form>
+		{% endfor %}
+	</div>
+
+{% endblock %}

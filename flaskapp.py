@@ -1,5 +1,5 @@
-from flask import Flask, render_template, send_from_directory, flash, redirect, session, jsonify
-from forms import LoginForm, PostForm, RegisterForm, SearchForm
+from flask import Flask, render_template, send_from_directory, flash, redirect, session, jsonify, request
+from forms import LoginForm, PostForm, RegisterForm, SearchForm, ResultForm
 from datetime import date
 import os
 
@@ -219,10 +219,18 @@ def searchTix2():
     return str(return_me)
 
 
-@app.route('/basicsearch')
+@app.route('/basicsearch', methods=['GET', 'POST'])
 def basic_search():
     out = user.db.basic_search()
-    return jsonify(search=out)
+    if request.method == 'GET':
+        #return jsonify(search=out)
+        return render_template('ticketResults.html', results=out)
+    else:
+        for result in out:
+            if result[1] in request.form:
+                return result[1]
+        else:
+            return 'Something\'s wrong'
 
 
 @app.route('/hey/me')
