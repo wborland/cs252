@@ -4,26 +4,23 @@
 
 	<div class="container text-left">
 		<h1 class="text-center"> Results </h1>
-        <br>
+    <br>
 		{% for result in results %}
 			<form action="" method="post">
-       
-    	        <div class="form-group">
-	                Event: {{ result[2] }}<br>
-	                Date and Time: {{ result[3] }}<br>
-	                ${{ result[4] }}<br>
-	                Place: {{ result[6] }}<br>
-	                {{ result[5] }}<br>
-            	</div>
-
-    	        <br>
-    	        <div class="form-group">
+    		<div class="form-group">
+	      	Event: {{ result[2] }}<br>
+	        Date and Time: {{ result[3] }}<br>
+	        ${{ result[4] }}<br>
+	        Place: {{ result[6] }}<br>
+	        {{ result[5] }}<br>
+				</div>
+    	  <br>
+    	  <div class="form-group">
 					<input name=message type="submit" value="Message {{ result[1] }} about this ticket"/>
 				</div>
-    	        <br>
-    	        <br>
-    	        <br>
-
+    	  <br>
+    	  <br>
+    	  <br>
 			</form>
 		{% endfor %}
 	</div>
