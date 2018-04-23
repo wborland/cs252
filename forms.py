@@ -11,7 +11,7 @@ class LoginForm(FlaskForm):
 class PostForm(FlaskForm):
     event = StringField('Event Name', validators=[DataRequired()])
     date = DateField('Date', validators=[DataRequired()], format="%m/%d/%Y")
-    time = TimeField('Time', validators=[DataRequired()])
+    #time = TimeField('Time', validators=[DataRequired()])
     location = StringField('Event Location', validators=[DataRequired()])
     price = DecimalField('Ticket Price (US $)', validators=[DataRequired()], places=2)
     comments = TextAreaField('Comments')

@@ -25,7 +25,6 @@ def check_login(email, password):
     out = cursor.fetchall()
 
     return 1
-
 add_ticket_cmd = """INSERT INTO `studentTix`.`tickets` (`user_id`, `name`, `event`, `date_time`, `price`, `description`, `location`) VALUES (%s, %s, %s, %s, %s, %s, %s); """
 
 
@@ -127,13 +126,20 @@ check_login_cmd = """SELECT password FROM studentTix.user WHERE email = %s"""
 def check_login(email, password):
     conn = db.conn()
     cursor = conn.cursor()
-    cursor.execute(check_login_cmd, [email])
-    pass_check = cursor.fetchone()
+    
 
-    if pass_check[0] == password:
-        return 1
-    else:
+    try:
+        cursor.execute(check_login_cmd, [email])
+        pass_check = cursor.fetchone()
+
+        if pass_check[0] == password:
+            return 1
+        else:
+            return -1
+    except:
         return -1
+
+
 
 
 

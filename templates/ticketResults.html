@@ -6,7 +6,7 @@
 		<h1 class="text-center"> Results </h1>
     <br>
 		{% for result in results %}
-			<form action="" method="post">
+			<form action="{{ url_for('messageseller') }}" method="post">
     		<div class="form-group">
 	      	Event: {{ result[2] }}<br>
 	        Date and Time: {{ result[3] }}<br>
@@ -16,8 +16,9 @@
 				</div>
     	  <br>
     	  <div class="form-group">
-					<input name=message type="submit" value="Message {{ result[1] }} about this ticket"/>
-				</div>
+    	  	<input type="hidden" name="message_to_id"" value="{{ result[0] }}">
+			<input name=message type="submit" value="Message {{ result[1] }} about this ticket"/>
+		  </div>
     	  <br>
     	  <br>
     	  <br>

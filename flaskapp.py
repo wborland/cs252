@@ -106,10 +106,10 @@ def postTix2():
             if form.price.data < 0:
                 flash('Price must be a positive number')
                 return render_template('postTicket.html', form=form)
-            flash('Post for event {} on date {} at time {} location {} for price {} with comments \'{}\''.format(
-                form.event.data, form.date.data.strftime('%x'), form.time.data, form.location.data, form.price.data, form.comments.data))
+            flash('Post for event {} on date {}  location {} for price {} with comments \'{}\''.format(
+                form.event.data, form.date.data.strftime('%x'),  form.location.data, form.price.data, form.comments.data))
 
-            print(user.db.add_ticket(3, session["username"], form.event.data, form.date.data, form.price.data, form.comments.data, form.location.data))
+            print(user.db.add_ticket(user.db.get_user_id(session["username"]), user.db.get_user_name(user.db.get_user_id(session["username"])), form.event.data, form.date.data, form.price.data, form.comments.data, form.location.data))
 
             return redirect('/')
         else :
@@ -228,6 +228,16 @@ def results():
         return request.form.get('message')
 
 
+@app.route('/messageseller', methods=['POST'])
+def messageseller():
+    if "username" in session:
+        message_to = request.form.get('message_to_id')
+        return message_to
+
+    else:
+        return redirect(url_for("light"))
+
+
 @app.route('/messages')
 def messages():
     if "username" in session:
@@ -247,6 +257,8 @@ def send_message():
     user.db.add_message(to_id, from_id, message)
 
     return redirect(url_for("light"))
+
+
 
 @app.errorhandler(404)
 def page_not_found(e):
