@@ -236,7 +236,7 @@ def messages(id):
     if "username" in session:
         return jsonify(messages=user.db.get_all_user_messages(id))
     else:
-        return redirect(url_for("light"))
+        
 """
 
 
@@ -247,12 +247,18 @@ def messages(id):
     for key, value in out.items():
         print(key, value)
 
-
     return render_template('messages.html', users=user.db.get_all_user_messages(id))
 
-@app.route('/hey/me')
-def he():
-        return "Hey"
+@app.route('/send_message', methods=['POST'])
+def send_message():
+    message = request.form['message']
+    to_id = request.form['to_id']
+    email = session['username']
+    from_id = user.db.get_user_id(email)
+
+    user.db.add_message(to_id, from_id, message)
+
+    return redirect(url_for("light"))
 
 @app.errorhandler(404)
 def page_not_found(e):

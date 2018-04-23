@@ -6,10 +6,10 @@
 	<h1>Log in</h1>
 	<form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>
+        <div class="form-group col-sm-12">
             {{ form.email.label }}<br>
-            {{ form.email(size=48) }}
-        </p>
+            {{ form.email(size=48, class="form-control") }}
+        </div>
         <p>
             {{ form.password.label }}<br>
             {{ form.password(size=48) }}

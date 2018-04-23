@@ -85,21 +85,18 @@ def get_all_user_messages(user_id):
         from_messages = cursor.fetchall()
         single_dict = to_messages + from_messages
         sorted_tuple = sorted(single_dict,key=lambda x: x[0])
-        name = get_user_name(user)
+        name = (get_user_name(user), user)
         return_dict[name] = sorted_tuple
 
 
     return return_dict
 
-
-
-add_message = """INSERT INTO `studentTix`.`messages` (`to_id`, `from_id`, `message`) VALUES (%s, %s, %s);"""
-
 def add_message(to_id, from_id, message):
     conn = db.conn()
     cursor = conn.cursor()
+    add_message = "INSERT INTO studentTix.messages (to_id, from_id, message) VALUES (" + to_id + ", " + from_id +", \" " + message +" \");"
 
-    cursor.execute(add_message, [to_id, from_id, message])
+    cursor.execute(add_message)
     conn.commit()
 
     return 1
@@ -113,4 +110,14 @@ def get_user_name(id):
     out = cursor.fetchall()
     name = out[0][0] + " " + out[0][1]
     return name
-    
+
+
+email_cmd = """SELECT id FROM studentTix.user WHERE email = %s"""
+
+def get_user_id(email):
+    conn = db.conn()
+    cursor = conn.cursor()
+    cursor.execute(email_cmd, [email])
+
+    out = cursor.fetchall()
+    return str(out[0][0])
