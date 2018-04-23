@@ -78,12 +78,7 @@ def get_all_user_messages(user_id):
         else:
             group_set.add(pair[1])
 
-
-
-    print(group_set)
-
     for user in group_set:
-        print(user, user_id)
         cursor.execute(get_to_messages_in_group, [user_id, user])
         to_messages = cursor.fetchall()
         cursor.execute(get_from_messages_in_group, [user, user_id])
@@ -92,6 +87,7 @@ def get_all_user_messages(user_id):
         sorted_tuple = sorted(single_dict,key=lambda x: x[0])
         name = get_user_name(user)
         return_dict[name] = sorted_tuple
+
 
     return return_dict
 
