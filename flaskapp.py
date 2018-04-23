@@ -45,20 +45,14 @@ def login():
 @app.route('/login', methods=['POST'])
 def login2():
         form = LoginForm()
-        if form.validate_on_submit(): #and user exists in db
-            flash('Logged in as {} with password {}'.format(
-                form.email.data, form.password.data))
+        if form.validate_on_submit() and user.db.check_login(form.email.data, form.password.data) == 1: #and user exists in db
+            flash('Logged in as {} with password {}'.format(form.email.data, form.password.data))
 
             email = form.email.data
             password = form.password.data
             print("Hello", user.db.check_login(email, password))
 
-
             session['username'] = form.email.data
-
-
-        	
-
             return redirect('/')
         else :
             flash('You must fill out both fields')
@@ -99,8 +93,11 @@ def register2():
 
 @app.route('/postTix')
 def postTix():
+    if "username" in session:
         form = PostForm()
         return render_template('postTicket.html', form=form)
+    else:
+        return redirect(url_for("light"))
 
 @app.route('/postTix', methods=['POST'])
 def postTix2():
@@ -230,24 +227,15 @@ def results():
     else:
         return request.form.get('message')
 
-"""
-@app.route('/messages/<id>')
-def messages(id):
+
+@app.route('/messages')
+def messages():
     if "username" in session:
-        return jsonify(messages=user.db.get_all_user_messages(id))
+        id = user.db.get_user_id(session["username"])
+        out = user.db.get_all_user_messages(id)
+        return render_template('messages.html', users=user.db.get_all_user_messages(id))
     else:
-        
-"""
-
-
-@app.route('/messages/<id>')
-def messages(id):
-    out = user.db.get_all_user_messages(id)
-
-    for key, value in out.items():
-        print(key, value)
-
-    return render_template('messages.html', users=user.db.get_all_user_messages(id))
+        return redirect(url_for("light"))
 
 @app.route('/send_message', methods=['POST'])
 def send_message():

@@ -121,3 +121,28 @@ def get_user_id(email):
 
     out = cursor.fetchall()
     return str(out[0][0])
+
+
+check_login_cmd = """SELECT password FROM studentTix.user WHERE email = %s"""
+def check_login(email, password):
+    conn = db.conn()
+    cursor = conn.cursor()
+    cursor.execute(check_login_cmd, [email])
+    pass_check = cursor.fetchone()
+
+    if pass_check[0] == password:
+        return 1
+    else:
+        return -1
+
+
+
+
+
+
+
+
+
+
+
+
