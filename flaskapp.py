@@ -51,21 +51,21 @@ def login():
 @app.route('/login', methods=['POST'])
 def login2():
         form = LoginForm()
-        if form.validate_on_submit(): #and user exists in db
-            flash('Logged in as {} with password {}'.format(
-                form.email.data, form.password.data))
+        if form.validate_on_submit():
 
             email = form.email.data
             password = form.password.data
-            print("Hello", user.db.check_login(email, password))
+            #print("Hello", user.db.check_login(email, password))
 
+            if user.db.check_login(email, password):
+                session['username'] = form.email.data
+                flash('Logged in as {} with password {}'.format(
+                    form.email.data, form.password.data))
+                return redirect('/')
+            else:
+                flash('Username and password was incorrect')
+                return redirect('/login')
 
-            session['username'] = form.email.data
-
-
-        	
-
-            return redirect('/')
         else :
             flash('You must fill out both fields')
             return render_template('login.html', form=form)
@@ -98,7 +98,7 @@ def register2():
 
         user.db.add_user(form.firstName.data, form.lastName.data, form.email.data, form.password.data, methods)
 
-        return redirect('/')
+        return redirect('/searchTix')
     else:
         flash('Please fill out every field')
         return render_template('register.html', form=form)

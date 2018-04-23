@@ -23,8 +23,11 @@ def check_login(email, password):
 
     cursor.execute(login_user_cmd, [email])
     out = cursor.fetchall()
-
-    return 1
+    print(out[0])
+    if out[0][3] == email and out[0][4] == password:
+        return True
+    else:
+        return False
 
 add_ticket_cmd = """INSERT INTO `studentTix`.`tickets` (`user_id`, `name`, `event`, `date_time`, `price`, `description`, `location`) VALUES (%s, %s, %s, %s, %s, %s, %s); """
 
