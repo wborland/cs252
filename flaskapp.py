@@ -53,6 +53,7 @@ def login2():
             print("Hello", user.db.check_login(email, password))
 
             session['username'] = form.email.data
+            session['id'] = user.db.get_user_id(form.email.data)
             return redirect('/')
         else :
             flash('You must fill out both fields')
@@ -82,9 +83,11 @@ def register2():
                 methods += ','
         flash('selected methods: ' + methods)
         session['username'] = form.email.data
+
         flash('logged in as: ' + form.email.data)
 
         user.db.add_user(form.firstName.data, form.lastName.data, form.email.data, form.password.data, methods)
+        session['id'] = user.db.get_user_id(form.email.data)
 
         return redirect('/')
     else:
@@ -228,12 +231,11 @@ def results():
         return request.form.get('message')
 
 
-@app.route('/messageseller', methods=['POST'])
-def messageseller():
+@app.route('/usermessage/<to_id>/<message>')
+def messageseller(to_id,message):
     if "username" in session:
-        message_to = request.form.get('message_to_id')
-        return message_to
-
+        user.db.add_message(to_id, user.db.get_user_id(session['username']), message)
+        return redirect(url_for("messages"))
     else:
         return redirect(url_for("light"))
 
