@@ -2,6 +2,8 @@
 
 {% block content %}
 
+
+<!--
 <div class="container">
   <h1>Messages</h1>
   <br>
@@ -22,24 +24,14 @@
           <p style="border:2px; border-style:solid; border-color:#3fcc2f; padding: 1em;" align="left">henlo student</p>
         </div>
 
-        <form action="" method="post">
-        <p>
-            {{ form.message.label }}<br>
-            {{ form.message(size=64) }}
-        </p>
-        <p>{{ form.send() }}</p>
-
-
-        </form>
-
-      <!--div class="container">
+      <div class="container">
         <form class="form-inline" action="/action_page.php">
           <div class="form-group">
             <input type="message" class="form-control" id="message" placeholder="Enter message" name="message">
           </div>
           <button type="submit" class="btn btn-default">send</button>
         </form>
-      </div-->
+      </div>
 
     </div>
 
@@ -54,26 +46,24 @@
 
 </body>
 </html>
-
-
-<!-- dynamic message code
+-->
 
 <div class="container">
   <h1>Messages</h1>
   <br>
   <ul class="nav nav-pills">
     {% for u in users %}
-      <li><a data-toggle="pill" href="#{{ u[id] }}">{{ u.name }}</a></li>
+      <li><a data-toggle="pill" href="#{{u}}">{{ u }}</a></li>
     {% endfor %}
   </ul>
 
   <div class="tab-content">
-    {% for u in users %}
-      <div id="{{ u[id] }}" class="tab-pane fade">
-      <h3>{{ u.name }}</h3>
+    {% for u, v in users.items() %}
+      <div id="{{ u }}" class="tab-pane fade">
+      <h3>{{ u }}</h3>
         <div id="box">
-          {% for m in u.messages %}
-            {% if m.from_user_id == u.id %}
+          {% for m in v %}
+            {% if m[1] == 1 %}
               <p style="border:2px; border-style:solid; border-color:#3fcc2f; padding: 1em;" align="left">{{ m }}</p>
             {% else %}
               <p style="border:2px; border-style:solid; border-color:#e1e3e1; padding: 1em;" align="right">{{ m }}</p>
@@ -95,6 +85,23 @@
   </div>
 </div>
 
--->
+
+
+
+
+
+<p>
+  {% for key, value in users.items() %}
+    {% for message in value %}
+      <p>{{ message[4] }}</p>
+    {% endfor %}
+  {% endfor %}
+</p>
+
+<p>
+  {{ users }}
+</p>
+
+
 
 {% endblock %}

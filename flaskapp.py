@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, flash, redirect, session, jsonify, request
+from flask import Flask, render_template, send_from_directory, flash, redirect, session, jsonify, request, url_for
 from forms import LoginForm, PostForm, RegisterForm, SearchForm, ResultForm
 from datetime import date
 import os
@@ -22,20 +22,14 @@ def favicon():
 def grr():
         return '<html>\nA Systems <em><b>God</b></em>\n</html>'
 
-@app.route('/dark')
-def index():
-	return render_template('index-dark.html')
-
 @app.route('/')
 def light():
-        return redirect('/searchTix')
+    return redirect('/searchTix')
 	#return render_template('index-light.html')
 
 @app.route('/db')
 def db():
-	out = user.db.add_user("Will", "BORLAND", "Testing", "password")
-	print(out)
-	return str(out)
+	return render_template('index-light.html')
 	
 @app.route('/logout')
 def logout():
@@ -162,7 +156,6 @@ def searchTix2():
             and_flag = 1
             sql_cmd += " date_time LIKE " + "'%" + str(form.time.data) + "%'"
 
-
     if form.price1.data == True:
         if and_flag == 1:
             sql_cmd += " AND price BETWEEN 0 AND 19.99"
@@ -237,14 +230,29 @@ def results():
     else:
         return request.form.get('message')
 
-@app.route('/messages')
-def messages():
-	return render_template('messages.html')
+"""
+@app.route('/messages/<id>')
+def messages(id):
+    if "username" in session:
+        return jsonify(messages=user.db.get_all_user_messages(id))
+    else:
+        return redirect(url_for("light"))
+"""
+
+
+@app.route('/messages/<id>')
+def messages(id):
+    out = user.db.get_all_user_messages(id)
+
+    for key, value in out.items():
+        print(key, value)
+
+
+    return render_template('messages.html', users=user.db.get_all_user_messages(id))
 
 @app.route('/hey/me')
 def he():
         return "Hey"
-
 
 @app.errorhandler(404)
 def page_not_found(e):
