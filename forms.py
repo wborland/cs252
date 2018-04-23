@@ -38,9 +38,13 @@ class SearchForm(FlaskForm):
     time = TimeField('Time')
     location = StringField('Event Location')
     #price = NumberRangeField('Price Range')
-    price1 = BooleanField('$0 - $19')
-    price2 = BooleanField('$20 - $39')
-    price3 = BooleanField('$40 - $59')
-    price4 = BooleanField('$60 - $79')
-    price5 = BooleanField('$80 - $99')
+    price1 = BooleanField('$0 - $19.99')
+    price2 = BooleanField('$20 - $39.99')
+    price3 = BooleanField('$40 - $59.99')
+    price4 = BooleanField('$60 - $79.99')
+    price5 = BooleanField('$80 - $99.99')
     price6 = BooleanField('$100+')
+
+class ResultForm(FlaskForm):
+    seller = str('')
+    submit = SubmitField('Message seller about this ticket')

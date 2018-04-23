@@ -38,4 +38,25 @@ def add_ticket(user_id, name, event, time, price, description, location):
     print(cursor.fetchall())
 
     return 1
+
+basic_search_cmd = """SELECT user_id, name, event, date_time, price, description, location FROM `studentTix`.`tickets`"""
+
+def basic_search():
+    conn = db.conn()
+    cursor = conn.cursor()
+
+    cursor.execute(basic_search_cmd)
+    out = cursor.fetchall()
+    return out
+
+
+
+def run_command(command):
+    print(command)
+    conn = db.conn()
+    cursor = conn.cursor()
+    cursor.execute(command)
+
+    out = cursor.fetchall()
+    return out
     

@@ -1,10 +1,9 @@
-from flask import Flask, render_template, send_from_directory, flash, redirect, session
-from forms import LoginForm, PostForm, RegisterForm, SearchForm
+from flask import Flask, render_template, send_from_directory, flash, redirect, session, jsonify, request
+from forms import LoginForm, PostForm, RegisterForm, SearchForm, ResultForm
 from datetime import date
 import os
 
 import db
-import db.util
 import user.db
 
 
@@ -133,8 +132,110 @@ def searchTix():
 
 @app.route('/searchTix', methods=['POST'])
 def searchTix2():
-    form = SeachForm()
-    return "hi"
+    form = SearchForm()
+    and_flag = 0
+    sql_cmd = "SELECT user_id, name, event, date_time, price, description, location FROM `studentTix`.`tickets` WHERE " 
+    out = ""
+
+    if len(form.event.data) > 0:
+        and_flag = 1
+        sql_cmd += "event LIKE " + "'%" + form.event.data + "%'"
+
+    if len(form.location.data) > 0:
+        if and_flag == 1:
+            sql_cmd += " AND location LIKE " + "'%" + form.location.data + "%'"
+        else:
+            and_flag = 1
+            sql_cmd += "location LIKE " + "'%" + form.location.data + "%'"
+
+    if form.date.data is not None:
+        if and_flag == 1:
+            sql_cmd += " AND date_time LIKE " + "'%" + str(form.date.data) + "%'"
+        else:
+            and_flag = 1
+            sql_cmd += " date_time LIKE " + "'%" + str(form.date.data) + "%'"
+
+    if form.time.data is not None:
+        if and_flag == 1:
+            sql_cmd += " AND date_time LIKE " + "'%" + str(form.time.data) + "%'"
+        else:
+            and_flag = 1
+            sql_cmd += " date_time LIKE " + "'%" + str(form.time.data) + "%'"
+
+
+    if form.price1.data == True:
+        if and_flag == 1:
+            sql_cmd += " AND price BETWEEN 0 AND 19.99"
+        else:
+            and_flag = 1
+            sql_cmd += " price BETWEEN 0 AND 19.99"
+
+    if form.price2.data == True:
+        if and_flag == 1:
+            sql_cmd += " OR price BETWEEN 20 AND 39.99"
+        else:
+            and_flag = 1
+            sql_cmd += " price BETWEEN 20 AND 39.99"
+
+
+    if form.price3.data == True:
+        if and_flag == 1:
+            sql_cmd += " OR price BETWEEN 40 AND 59.99"
+        else:
+            and_flag = 1
+            sql_cmd += " price BETWEEN 40 AND 59.99"
+
+
+    if form.price4.data == True:
+        if and_flag == 1:
+            sql_cmd += " OR price BETWEEN 60 AND 79.99"
+        else:
+            and_flag = 1
+            sql_cmd += " price BETWEEN 60 AND 79.99"
+
+
+
+    if form.price5.data == True:
+        if and_flag == 1:
+            sql_cmd += " OR price BETWEEN 80 AND 99.99"
+        else:
+            and_flag = 1
+            sql_cmd += " price BETWEEN 80 AND 99.99"
+
+
+
+    if form.price6.data == True:
+        if and_flag == 1:
+            sql_cmd += " OR price >= 100.00"
+        else:
+            and_flag = 1
+            sql_cmd += " price >= 100.00"
+
+
+    if and_flag == 0:
+        sql_cmd = sql_cmd[:-7]
+
+    return_me = user.db.run_command(sql_cmd)
+    #return str(return_me)
+    session['results'] = return_me
+    return redirect('/results')
+
+
+@app.route('/basicsearch', methods=['GET', 'POST'])
+def basic_search():
+    if request.method == 'GET':
+        out = user.db.basic_search()
+        #return jsonify(search=out)
+        return render_template('ticketResults.html', results=out)
+    else:
+        return request.form.get('message')
+
+@app.route('/results', methods=['GET', 'POST'])
+def results():
+    if request.method == 'GET':
+        return render_template('ticketResults.html', results=session['results'])
+    else:
+        return request.form.get('message')
 
 @app.route('/messages')
 def messages():
