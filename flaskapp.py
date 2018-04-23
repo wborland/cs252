@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-from flask import Flask, render_template, send_from_directory, flash, redirect, session, jsonify, url_for
-from forms import LoginForm, PostForm, RegisterForm, SearchForm
-=======
-from flask import Flask, render_template, send_from_directory, flash, redirect, session, jsonify, request
+from flask import Flask, render_template, send_from_directory, flash, redirect, session, jsonify, request, url_for
 from forms import LoginForm, PostForm, RegisterForm, SearchForm, ResultForm
->>>>>>> 8856961463ea60abb9750fa6a69d363645c357ad
 from datetime import date
 import os
 
@@ -235,10 +230,10 @@ def results():
     else:
         return request.form.get('message')
 
-@app.route('/messages')
-def messages():
+@app.route('/messages/<id>')
+def messages(id):
     if "username" in session:
-        return jsonify(messages=user.db.get_all_user_messages(1))
+        return jsonify(messages=user.db.get_all_user_messages(id))
     else:
         return redirect(url_for("light"))
 
