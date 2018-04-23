@@ -1,0 +1,100 @@
+{% extends "bass.html" %}
+
+{% block content %}
+
+<div class="container">
+  <h1>Messages</h1>
+  <br>
+  <ul class="nav nav-pills">
+    <li><a data-toggle="pill" href="#grr">Gustavo Rodriguez</a></li>
+    <li><a data-toggle="pill" href="#home">Home</a></li>
+  </ul>
+
+  <div id="msgs" class="tab-content">
+    <div id="grr" class="tab-pane fade">
+      <h3>Gustavo Rodriguez</h3>
+        <div id="box">
+          <p style="border:2px; border-style:solid; border-color:#e1e3e1; padding: 1em;" align="right">henlo systems god</p>
+          <p style="border:2px; border-style:solid; border-color:#e1e3e1; padding: 1em;" align="right">henlo systems god</p>
+          <p style="border:2px; border-style:solid; border-color:#e1e3e1; padding: 1em;" align="right">henlo systems god</p>
+          <p style="border:2px; border-style:solid; border-color:#e1e3e1; padding: 1em;" align="right">henlo systems god</p>
+
+          <p style="border:2px; border-style:solid; border-color:#3fcc2f; padding: 1em;" align="left">henlo student</p>
+        </div>
+
+        <form action="" method="post">
+        <p>
+            {{ form.message.label }}<br>
+            {{ form.message(size=64) }}
+        </p>
+        <p>{{ form.send() }}</p>
+
+
+        </form>
+
+      <!--div class="container">
+        <form class="form-inline" action="/action_page.php">
+          <div class="form-group">
+            <input type="message" class="form-control" id="message" placeholder="Enter message" name="message">
+          </div>
+          <button type="submit" class="btn btn-default">send</button>
+        </form>
+      </div-->
+
+    </div>
+
+    <div id="home" class="tab-pane fade">
+      <h3>HOME</h3>
+      <div id="box" style="height:300px;width:600px;border:1px solid #ccc;overflow:auto;">
+        a
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+
+
+<!-- dynamic message code
+
+<div class="container">
+  <h1>Messages</h1>
+  <br>
+  <ul class="nav nav-pills">
+    {% for u in users %}
+      <li><a data-toggle="pill" href="#{{ u[id] }}">{{ u.name }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for u in users %}
+      <div id="{{ u[id] }}" class="tab-pane fade">
+      <h3>{{ u.name }}</h3>
+        <div id="box">
+          {% for m in u.messages %}
+            {% if m.from_user_id == u.id %}
+              <p style="border:2px; border-style:solid; border-color:#3fcc2f; padding: 1em;" align="left">{{ m }}</p>
+            {% else %}
+              <p style="border:2px; border-style:solid; border-color:#e1e3e1; padding: 1em;" align="right">{{ m }}</p>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="container">
+          <form class="form-inline" action="/action_page.php">
+            <div class="form-group">
+              <input type="message" class="form-control" id="message" placeholder="Enter message" name="message">
+            </div>
+            <button type="submit" class="btn btn-default">send</button>
+          </form>
+        </div>
+
+    {% endfor %}
+    </div>
+  </div>
+</div>
+
+-->
+
+{% endblock %}

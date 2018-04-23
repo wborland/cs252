@@ -237,6 +237,10 @@ def results():
     else:
         return request.form.get('message')
 
+@app.route('/messages')
+def messages():
+	return render_template('messages.html')
+
 @app.route('/hey/me')
 def he():
         return "Hey"
