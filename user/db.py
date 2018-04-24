@@ -80,9 +80,6 @@ def get_all_user_messages(user_id):
             else:
                 group_set.add(pair[0])
 
-
-
-
         for user in pair:
 
             if str(user) == user_id:
