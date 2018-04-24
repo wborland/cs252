@@ -46,8 +46,6 @@ def login():
 def login2():
         form = LoginForm()
         if form.validate_on_submit() and user.db.check_login(form.email.data, form.password.data) == 1: #and user exists in db
-            flash('Logged in as {} with password {}'.format(form.email.data, form.password.data))
-
             email = form.email.data
             password = form.password.data
             print("Hello", user.db.check_login(email, password))
@@ -56,7 +54,6 @@ def login2():
             session['id'] = user.db.get_user_id(form.email.data)
             return redirect('/')
         else :
-            flash('You must fill out both fields')
             return render_template('login.html', form=form)
 
 @app.route('/register')
@@ -237,6 +234,7 @@ def messageseller(to_id,message):
         user.db.add_message(to_id, user.db.get_user_id(session['username']), message)
         return redirect(url_for("messages"))
     else:
+        print("message")
         return redirect(url_for("light"))
 
 
@@ -247,6 +245,7 @@ def messages():
         out = user.db.get_all_user_messages(id)
         return render_template('messages.html', users=user.db.get_all_user_messages(id))
     else:
+        print("method")
         return redirect(url_for("light"))
 
 @app.route('/send_message', methods=['POST'])
@@ -258,9 +257,7 @@ def send_message():
 
     user.db.add_message(to_id, from_id, message)
 
-    return redirect(url_for("light"))
-
-
+    return redirect(url_for("messages"))
 
 @app.errorhandler(404)
 def page_not_found(e):

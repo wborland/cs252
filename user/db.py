@@ -1,3 +1,4 @@
+from flask import Flask, render_template, send_from_directory, flash, redirect, session, jsonify, request, url_for
 import db
 
 
@@ -81,7 +82,9 @@ def get_all_user_messages(user_id):
 
 
     for user in pair:
-        print(user)
+
+        if str(user) == user_id:
+            continue
         cursor.execute(get_to_messages_in_group, [user_id, user])
         to_messages = cursor.fetchall()
         cursor.execute(get_from_messages_in_group, [user, user_id])
