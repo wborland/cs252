@@ -4,40 +4,61 @@
 
 	<div class="container">
 	<h1>Register</h1>
-	<br>
+  <h3 class="text-center light-green-text">{{ error }}</h3>
 	<form action="" method="post">
   	{{ form.hidden_tag() }}
-    <div class="row"><div class="form-group col-sm-6">
-      {{ form.email.label }}<br>
-      {{ form.email(size=48, class="form-control") }}
-    </div></div>
-    <div class="row"><div class="form-group col-sm-6">
-      {{ form.firstName.label }}<br>
-      {{ form.firstName(size=48, class="form-control") }}
-	  </div></div>
-    <div class="row"><div class="form-group col-sm-6">
-      {{ form.lastName.label }}<br>
-      {{ form.lastName(size=48, class="form-control") }}
-    </div></div>
-		<h4>Forms of Payment Accepted</h4>
-		<div class="d-block my-3">
-			<p>{{ form.venmo }} {{ form.venmo.label }}</p>
-			<p>{{ form.facebook }} {{ form.facebook.label }}</p>
-			<p>{{ form.apple }} {{ form.apple.label }}</p>
-			<p>{{ form.android }} {{ form.android.label }}</p>
-			<p>{{ form.dollars }} Cash (In person)</p>
+
+    <div class="row">
+      <div class="form-group col-sm-6">
+        {{ form.email.label }}<br>
+        {{ form.email(size=48, class="form-control") }}
+      </div>
+
+
+      <div class="form-group d-block my-3 col-sm-6 ">
+        <p>Forms of Payment Accepted</p>
+        <label class="checkbox-inline">{{ form.venmo }} {{ form.venmo.label }}</label>
+        <label class="checkbox-inline">{{ form.facebook }} {{ form.facebook.label }}</label>
+        <label class="checkbox-inline">{{ form.apple }} {{ form.apple.label }}</label>
+        <label class="checkbox-inline">{{ form.android }} {{ form.android.label }}</label>
+        <label class="checkbox-inline">{{ form.dollars }} {{ form.dollars.label }}</label>
+      </div>
+
+
+    </div>
+      
+
+    <div class="row">
+      <div class="form-group col-sm-6">
+        {{ form.firstName.label }}<br>
+        {{ form.firstName(size=48, class="form-control") }}
+      </div>
+
+      <div class="form-group col-sm-6">
+        {{ form.lastName.label }}<br>
+        {{ form.lastName(size=48, class="form-control") }}
+      </div>
 		</div>
-      <div class="row"><div class="form-group col-sm-6">
+		
+
+    <div class="row">
+      <div class="form-group col-sm-6">
         {{ form.password.label }}<br>
         {{ form.password(size=48, class="form-control") }}
-      </div></div>
-      <div class="row"><div class="form-group col-sm-6">
+      </div>
+
+      <div class="form-group col-sm-6">
         {{ form.confirmPass.label }}<br>
         {{ form.confirmPass(size=48, class="form-control") }}
-			</div></div>
-      <div class="row"><div class="form-group col-sm-3">
+			</div>
+
+    </div>
+
+    <div class="row">
+      <div class="form-group col-sm-12">
       	{{ form.submit(class="form-control") }}
-			</div></div>
+			</div>
+    </div>
     </form>
 	</div>
 	

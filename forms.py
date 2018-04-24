@@ -26,7 +26,7 @@ class RegisterForm(FlaskForm):
     facebook = BooleanField('Facebook')
     apple = BooleanField('Apple Pay')
     android = BooleanField('Android Pay')
-    dollars = BooleanField('Cash')
+    dollars = BooleanField('Cash (In Person)')
     password = PasswordField('Password', validators=[DataRequired()])
     confirmPass = PasswordField('Retype Password', validators=[DataRequired()])
     submit = SubmitField('Sign Up')

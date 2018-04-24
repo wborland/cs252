@@ -1,0 +1,54 @@
+
+{% extends "bass.html" %}
+
+{% block content %}
+	<div class="container">
+        <h1>Dashboard</h1>
+	</div>
+
+    <div class="container">
+        <h3>Your Tickets</h3>
+        {% for result in tickets %}
+        <div class="container">
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="container">
+
+
+                        <div class="row text-center">
+                            <div class="col-sm-2 text-center">
+                                <h4>Event</h4>
+                                <h5>{{ result[3] }}</h5>
+                            </div>
+                            <div class="col-sm-2 text-center">
+                                <h4>Date and Time</h4> 
+                                <h5>{{ result[4] }} </h5>
+                            </div>
+                            <div class="col-sm-2 text-center">
+                                <h4>Price</h4> 
+                                <h5>${{ result[5] }}</h5>
+                            </div>
+                            <div class="col-sm-2 text-center">
+                                <h4>Location</h4> 
+                                <h5>{{ result[7] }}</h5>
+                            </div>
+                            {% if result[6] != "" %}
+                            <div class="col-sm-2 text-center">
+                                <h4>Description</h4>
+                                <h5>{{ result[6] }}</h5>
+                            </div>
+
+                        {% endif %}
+                        </div>
+
+
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

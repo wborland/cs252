@@ -6,23 +6,71 @@
 		<h1 class="text-center"> Results </h1>
     <br>
 		{% for result in results %}
-			<form action="" method="post">
-    		<div class="form-group">
-	      	Event: {{ result[2] }}<br>
-	        Date and Time: {{ result[3] }}<br>
-	        ${{ result[4] }}<br>
-	        Place: {{ result[6] }}<br>
-	        {{ result[5] }}<br>
-				</div>
-    	  <br>
-    	  <div class="form-group">
-					<input name=message type="submit" value="Message {{ result[1] }} about this ticket"/>
-				</div>
-    	  <br>
-    	  <br>
-    	  <br>
-			</form>
+		<div class="container">
+			<div class="row">
+				<div class="panel panel-default">
+					<div class="container">
+
+
+						<div class="row text-center">
+							<div class="col-sm-2 text-center">
+								<h4>Event</h4>
+								<h5>{{ result[2] }}</h5>
+							</div>
+							<div class="col-sm-2 text-center">
+								<h4>Date and Time</h4> 
+								<h5>{{ result[3] }} </h5>
+							</div>
+							<div class="col-sm-2 text-center">
+								<h4>Price</h4> 
+								<h5>${{ result[4] }}</h5>
+							</div>
+							<div class="col-sm-2 text-center">
+								<h4>Location</h4> 
+								<h5>{{ result[6] }}</h5>
+							</div>
+							<div class="col-sm-4">
+								<h4>Types of Payment Accepted</h4> 
+								<h5>{{ ((result[7])[:-1])|replace(",", ',  ') }}</h5>
+							</div>
+						</div>
+
+
+						{% if result[5] != "" %}
+							<div class="row text-center">
+								<h4>Description</h4>
+								<h5>{{ result[5] }}</h5>
+							</div>
+						{% else %}
+							<br>
+						{% endif %}
+
+
+						<button class="form-control" onclick="message('{{ result[0] }}', '{{ result[1] }}', '{{ session[username] }}')">Message {{ result[1]}}.</button>
+						<br>
+					</div>
+	        	</div>
+			</div>
+		</div>
 		{% endfor %}
 	</div>
 
+<script>
+function message(id, name, username) {
+    var txt;
+    var person = prompt("Enter your message to " + name);
+    if (person == null || person == "") {
+        txt = "User cancelled the prompt.";
+    } else {
+        txt = "Hello " + id;
+    }
+
+    window.location.href = "usermessage/" + id + "/" + username + person
+    document.getElementById("demo").innerHTML = txt;
+}
+</script>
+
+
 {% endblock %}
+
+
