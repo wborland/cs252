@@ -54,7 +54,7 @@ def login2():
             session['id'] = user.db.get_user_id(form.email.data)
             return redirect('/')
         else :
-            return render_template('login.html', form=form)
+            return render_template('login.html', form=form, error="Incorrect Credentials")
 
 @app.route('/register')
 def register():
@@ -66,30 +66,24 @@ def register2():
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.confirmPass.data:
-            flash('Passwords must match')
-            return render_template('register.html', form=form)
+            return render_template('register.html', form=form, error="Password do not match.")
 
         if form.venmo.data == False and form.facebook.data == False and form.apple.data == False and form.android.data == False and form.dollars.data == False:
-            flash('You must select at least one form of payment')
-            return render_template('register.html', form=form)
+            return render_template('register.html', form=form, error="You must select at least one form of payment.")
 
         methods = ''
         for field in form:
             if field.type == "BooleanField" and field.data == True:
                 methods += field.label.text
                 methods += ','
-        flash('selected methods: ' + methods)
+
         session['username'] = form.email.data
-
-        flash('logged in as: ' + form.email.data)
-
         user.db.add_user(form.firstName.data, form.lastName.data, form.email.data, form.password.data, methods)
         session['id'] = user.db.get_user_id(form.email.data)
 
         return redirect('/')
     else:
-        flash('Please fill out every field')
-        return render_template('register.html', form=form)
+        return render_template('register.html', form=form, error="Please fill out all fields.")
 
 @app.route('/postTix')
 def postTix():
