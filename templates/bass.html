@@ -45,11 +45,12 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
-        <li><a href="/searchTix">Search</a></li>
+        
 		  {% if not 'username' in session%}
           <li><a href="/login">Sign in</a></li>
           <li><a href="/register">Sign up</a></li>
 		  {% else %}
+          <li><a href="/searchTix">Search</a></li>
           <li><a href="/postTix">Sell</a></li>
           <li><a href="/messages">Messages</a></li>
           <li><a href="/logout">Log Out</a></li>

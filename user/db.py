@@ -66,37 +66,41 @@ get_from_messages_in_group = """SELECT * FROM `studentTix`.`messages` WHERE to_i
 def get_all_user_messages(user_id):
     conn = db.conn()
     cursor = conn.cursor()
+    empty_dict = {}
 
-    cursor.execute(get_user_groups, [user_id, user_id])
-    out = cursor.fetchall()
-    group_set = set()
-    return_dict = {}
+    try:
+        cursor.execute(get_user_groups, [user_id, user_id])
+        out = cursor.fetchall()
+        group_set = set()
+        return_dict = {}
 
-    for pair in out:
-        if pair[0] is not user_id:
-            group_set.add(pair[0])
-        else:
-            group_set.add(pair[0])
+        for pair in out:
+            if pair[0] is not user_id:
+                group_set.add(pair[0])
+            else:
+                group_set.add(pair[0])
 
 
 
 
-    for user in pair:
+        for user in pair:
 
-        if str(user) == user_id:
-            continue
-        cursor.execute(get_to_messages_in_group, [user_id, user])
-        to_messages = cursor.fetchall()
-        cursor.execute(get_from_messages_in_group, [user, user_id])
-        from_messages = cursor.fetchall()
-        single_dict = to_messages + from_messages
-        sorted_tuple = sorted(single_dict,key=lambda x: x[0])
-        name = (get_user_name(user), user)
-        return_dict[name] = sorted_tuple
+            if str(user) == user_id:
+                continue
+            cursor.execute(get_to_messages_in_group, [user_id, user])
+            to_messages = cursor.fetchall()
+            cursor.execute(get_from_messages_in_group, [user, user_id])
+            from_messages = cursor.fetchall()
+            single_dict = to_messages + from_messages
+            sorted_tuple = sorted(single_dict,key=lambda x: x[0])
+            name = (get_user_name(user), user)
+            return_dict[name] = sorted_tuple
 
-    print(return_dict)
+        print(return_dict)
 
-    return return_dict
+        return return_dict
+    except:
+        return empty_dict
 
 def add_message(to_id, from_id, message):
     conn = db.conn()
@@ -146,6 +150,17 @@ def check_login(email, password):
             return -1
     except:
         return -1
+
+
+
+get_user_tickets_cmd = """SELECT * FROM studentTix.tickets WHERE user_id = %s"""
+def get_user_tickets(id):
+    conn = db.conn()
+    cursor = conn.cursor()
+    cursor.execute(get_user_tickets_cmd, [id])
+    out = cursor.fetchall()
+    print(out)
+    return out
 
 
 

@@ -5,7 +5,7 @@ import os
 
 import db
 import user.db
-
+import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dvaz@purdue.edu'
@@ -24,8 +24,18 @@ def grr():
 
 @app.route('/')
 def light():
-    return redirect('/searchTix')
-	#return render_template('index-light.html')
+    if "username" in session:
+        return redirect('/dashboard')
+    else:
+        return render_template("index-light.html")
+
+
+@app.route('/dashboard')
+def dashbaord():
+    ticket = user.db.get_user_tickets(user.db.get_user_id(session["username"]))
+
+
+    return render_template("dashboard.html", tickets = ticket)
 
 @app.route('/db')
 def db():
@@ -97,17 +107,9 @@ def postTix():
 def postTix2():
         form = PostForm()
         if form.validate_on_submit():
-            if form.price.data < 0:
-                flash('Price must be a positive number')
-                return render_template('postTicket.html', form=form)
-            flash('Post for event {} on date {}  location {} for price {} with comments \'{}\''.format(
-                form.event.data, form.date.data.strftime('%x'),  form.location.data, form.price.data, form.comments.data))
-
-            print(user.db.add_ticket(user.db.get_user_id(session["username"]), user.db.get_user_name(user.db.get_user_id(session["username"])), form.event.data, form.date.data, form.price.data, form.comments.data, form.location.data))
-
+            print(user.db.add_ticket(user.db.get_user_id(session["username"]), user.db.get_user_name(user.db.get_user_id(session["username"])), form.event.data, datetime.datetime.combine(form.date.data, form.time.data), form.price.data, form.comments.data, form.location.data))
             return redirect('/')
         else :
-            flash('That was not valid')
             return render_template('postTicket.html', form=form)
 
 @app.route('/searchTix')
@@ -119,88 +121,43 @@ def searchTix():
 def searchTix2():
     form = SearchForm()
     and_flag = 0
-    sql_cmd = "SELECT user_id, name, event, date_time, price, description, location FROM `studentTix`.`tickets` WHERE " 
+    sql_cmd = "SELECT user_id, name, event, date_time, price, description, location, payment FROM `studentTix`.`tickets` RIGHT JOIN studentTix.user ON user.id = tickets.user_id WHERE user.id = tickets.user_id " 
     out = ""
 
     if len(form.event.data) > 0:
         and_flag = 1
-        sql_cmd += "event LIKE " + "'%" + form.event.data + "%'"
+        sql_cmd += "AND event LIKE " + "'%" + form.event.data + "%'"
 
     if len(form.location.data) > 0:
-        if and_flag == 1:
             sql_cmd += " AND location LIKE " + "'%" + form.location.data + "%'"
-        else:
-            and_flag = 1
-            sql_cmd += "location LIKE " + "'%" + form.location.data + "%'"
 
     if form.date.data is not None:
-        if and_flag == 1:
             sql_cmd += " AND date_time LIKE " + "'%" + str(form.date.data) + "%'"
-        else:
-            and_flag = 1
-            sql_cmd += " date_time LIKE " + "'%" + str(form.date.data) + "%'"
 
     if form.time.data is not None:
-        if and_flag == 1:
             sql_cmd += " AND date_time LIKE " + "'%" + str(form.time.data) + "%'"
-        else:
-            and_flag = 1
-            sql_cmd += " date_time LIKE " + "'%" + str(form.time.data) + "%'"
 
     if form.price1.data == True:
-        if and_flag == 1:
             sql_cmd += " AND price BETWEEN 0 AND 19.99"
-        else:
-            and_flag = 1
-            sql_cmd += " price BETWEEN 0 AND 19.99"
 
     if form.price2.data == True:
-        if and_flag == 1:
             sql_cmd += " OR price BETWEEN 20 AND 39.99"
-        else:
-            and_flag = 1
-            sql_cmd += " price BETWEEN 20 AND 39.99"
-
 
     if form.price3.data == True:
-        if and_flag == 1:
             sql_cmd += " OR price BETWEEN 40 AND 59.99"
-        else:
-            and_flag = 1
-            sql_cmd += " price BETWEEN 40 AND 59.99"
-
 
     if form.price4.data == True:
-        if and_flag == 1:
             sql_cmd += " OR price BETWEEN 60 AND 79.99"
-        else:
-            and_flag = 1
-            sql_cmd += " price BETWEEN 60 AND 79.99"
-
-
 
     if form.price5.data == True:
-        if and_flag == 1:
             sql_cmd += " OR price BETWEEN 80 AND 99.99"
-        else:
-            and_flag = 1
-            sql_cmd += " price BETWEEN 80 AND 99.99"
-
-
 
     if form.price6.data == True:
-        if and_flag == 1:
             sql_cmd += " OR price >= 100.00"
-        else:
-            and_flag = 1
-            sql_cmd += " price >= 100.00"
 
-
-    if and_flag == 0:
-        sql_cmd = sql_cmd[:-7]
+    sql_cmd += " AND NOT user_id = " + user.db.get_user_id(session["username"]) 
 
     return_me = user.db.run_command(sql_cmd)
-    #return str(return_me)
     session['results'] = return_me
     return redirect('/results')
 

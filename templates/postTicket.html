@@ -6,32 +6,56 @@
 		<h1> Sell a Ticket </h1>
 		<form action="" method="post">
       {{ form.hidden_tag() }}
-      <p>
-        {{ form.event.label }}<br>
-        {{ form.event(size=48) }}
-      </p>
-      <p>
-        {{ form.date.label }}<br>
-        {{ form.date(class="dtpick") }}
-      </p>
-			<br><br><br><br>
-			<br><br><br><br>
-      <p>
+      
+      <div class="row">
+        <div class="col-sm-6">
+          {{ form.event.label }}
+          {{ form.event(size=48, class="form-control", required='required') }}
+        </div>
 
-      </p>
-      <p>
-        {{ form.location.label }}<br>
-        {{ form.location(size=48) }}
-      </p>
-      <p>
-        {{ form.price.label }}<br>
-        {{ form.price() }}
-      </p>
-      <p>
-        {{ form.comments.label }}<br>
-        {{ form.comments(size=200) }}
-      </p>
-      <p>{{ form.submit() }}</p>
+        <div class="col-sm-6">
+          {{ form.location.label }}
+          {{ form.location(size=48, class="form-control", required='required') }}
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-sm-4">
+          {{ form.date.label }}
+          {{ form.date(class="dtpick form-control", required='required') }}
+        </div>
+
+        <div class="col-sm-4">
+          {{ form.time.label }}
+          {{ form.time(class="form-control") }}
+        </div>
+
+        <div class="col-sm-4">
+          {{ form.price.label }}
+          {{ form.price(class="form-control", type="number", required='required', min=0) }}
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-sm-12">
+          {{ form.comments.label }}
+          {{ form.comments(size=200, class="form-control") }}
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+          <div class="col-sm-12">
+            {{ form.submit(class="form-control") }}
+          </div>
+      </div>
+
+
+
+
+
 		</form>
 	</div>
 
